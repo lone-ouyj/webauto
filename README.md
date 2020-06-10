@@ -11,25 +11,25 @@ pymysql版本：pymysql0.9.3
 xlrd版本：xlrd1.2.0
 
 ###### **2.项目介绍**
-base中存放封装好的selenium方法BaseAction.py和启动浏览器的类型driver.py;
+base：中存放封装好的selenium方法BaseAction.py和启动浏览器的类型driver.py;
 
-business中存放各个业务模块的封装
+business：中存放各个业务模块的封装
 
-config中存放一些配置文件
+config：中存放一些配置文件
 
-data中可存放测试用例
+data：中可存放测试用例
 
-log中存放运行的日志，自动生成
+log：中存放运行的日志，自动生成
 
-report中存放运行测试用例的报告结果，通过BSTestRunner生成
+report：中存放运行测试用例的报告结果，通过BSTestRunner生成
 
-screenshot中存放运行中的截图
+screenshot：中存放运行中的截图
 
-testcase中存放各个业务模块的用例
+testcase：中存放各个业务模块的用例
 
-utils中存放日志收集、邮件信息、excel操作、msyql数据库操作、获取配置信息等功能类和方法
+utils：中存放日志收集、邮件信息、excel操作、msyql数据库操作、获取配置信息等功能类和方法
 
-run_alltest.py运行testcase中所有的用例集
+run_alltest.py：运行testcase中所有的用例集
 
 ###### **3.后期工作**
 1.完善对mysql数据库的操作
