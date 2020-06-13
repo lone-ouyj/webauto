@@ -26,15 +26,9 @@ class Send_Email():
         self.receives = read_ini.get_value("email_config","receives").split(self.split)
         self.subject = time.strftime("%Y-%m-%d")+read_ini.get_value("email_config","subject")
         self.content = read_ini.get_value("email_config","content")
-        if self.annex == "1":
-            logging.info("邮件包含附件")
-            self.send_email_anner()
-        else:
-            logging.info("邮件不包含附件")
-            self.send_email_noanner()
-        Logger().close_logger()
 
-    def send_email_noanner(self):
+
+    def email_noanner(self):
         try:
             msg = MIMEText(self.content, 'html', 'utf-8')
             msg['Subject'] = Header(self.subject, 'utf-8')
@@ -57,7 +51,7 @@ class Send_Email():
             Logger().close_logger()
 
 
-    def send_email_anner(self):
+    def email_anner(self):
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         report_dir = os.path.join(base_dir+"/report")
         report_html = sorted(os.listdir(report_dir),key=lambda x:os.path.getatime(report_dir+"/"+x),reverse=True)[0]
@@ -93,6 +87,15 @@ class Send_Email():
             logging.error("发送邮件失败")
         finally:
             Logger().close_logger()
+            
+    def send_email(self):
+        if self.annex == "1":
+            logging.info("邮件包含附件")
+            self.email_anner()
+        else:
+            logging.info("邮件不包含附件")
+            self.email_noanner()
+        Logger().close_logger()
 
 if __name__ == '__main__':
     t = Send_Email()

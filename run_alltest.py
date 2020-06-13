@@ -25,7 +25,7 @@ def main():
         runner = BSTestRunner(stream=f, title="Test Report", description="Test case Result")
         runner.run(discover)
     Logger().close_logger()
-    Send_Email()
+    Send_Email().send_email()
 
 if __name__=="__main__":
     main()

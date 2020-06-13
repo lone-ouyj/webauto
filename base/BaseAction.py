@@ -31,7 +31,7 @@ class WebDriver():
         self.driver.get(url)
         Logger().close_logger()
 
-    def find_element(self, *loc):
+    def find_element(self, loc):
         '''
         单个元素定位方法
         :param loc: 定位元素信息
@@ -49,7 +49,7 @@ class WebDriver():
         Logger().close_logger()
         return element
 
-    def find_elements(self, *loc):
+    def find_elements(self, loc):
         '''
         一组元素定位方法
         :param loc: 定位元素信息
@@ -74,7 +74,7 @@ class WebDriver():
         :param loc: 定位元素信息
         :return: 无
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         if element:
             logging.info("输入值:{0}".format(value))
             element.send_keys(value)
@@ -82,13 +82,13 @@ class WebDriver():
            logging.error("无法输入值")
         Logger().close_logger()
 
-    def click_element(self, *loc):
+    def click_element(self, loc):
         '''
         点击元素
         :param loc: 定位元素信息
         :return: 无
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         if element:
             logging.info("点击元素:{0}".format(loc))
             element.click()
@@ -96,13 +96,13 @@ class WebDriver():
             logging.error("无法点击元素")
         Logger().close_logger()
 
-    def clear_element(self, *loc):
+    def clear_element(self, loc):
         '''
         清空输入框
         :param loc: 定位元素信息
         :return: 无
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         if element:
             logging.info("清空输入框:{0}".format(loc))
             element.clear()
@@ -213,13 +213,13 @@ class WebDriver():
         self.driver.back()
         Logger().close_logger()
 
-    def get_element_size(self,*loc):
+    def get_element_size(self,loc):
         '''
         获取元素尺寸
         :param loc: 定位元素信息
         :return: 元素尺寸，失败返回None
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         if element:
             logging.info("获取元素尺寸:{0}".format(element.size))
             element_size = element.size
@@ -229,13 +229,13 @@ class WebDriver():
         Logger().close_logger()
         return element_size
 
-    def get_element_text(self,*loc):
+    def get_element_text(self,loc):
         '''
         获取元素文本信息
         :param loc: 定位元素信息
         :return: 元素文本，失败返回None
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         if element:
             logging.info("获取元素文本信息:{0}".format(element.text))
             element_text = element.text
@@ -251,7 +251,7 @@ class WebDriver():
         :param loc:定位元素信息
         :return:属性值，失败返回None
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         if element:
             logging.info("元素属性值:{0}".format(element.get_attribute(type)))
             element_attribute = element.get_attribute(type)
@@ -261,13 +261,13 @@ class WebDriver():
         Logger().close_logger()
         return element_attribute
 
-    def get_location(self,*loc):
+    def get_location(self,loc):
         '''
         获取元素坐标
         :param loc: 定位元素信息
         :return:元素坐标
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         if element:
             logging.info("元素坐标信息:{0}".format(element.location))
             element_location = element.location
@@ -277,13 +277,13 @@ class WebDriver():
         Logger().close_logger()
         return element_location
 
-    def get_is_selected(self,*loc):
+    def get_is_selected(self,loc):
         '''
         获取元素是否已选中
         :param loc: 定位元素信息
         :return: 返回True or False or None
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         if element:
             if element.is_selected() == True:
                 logging.logger.info("元素已选中")
@@ -297,13 +297,13 @@ class WebDriver():
         Logger().close_logger()
         return element_selected
 
-    def get_is_enabled(self,*loc):
+    def get_is_enabled(self,loc):
         '''
         获取元素是否可编辑
         :param loc: 定位元素信息
         :return: 返回True or False or None
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         if element:
             if element.is_enabled() == True:
                 logging.info("元素可编辑")
@@ -417,13 +417,13 @@ class WebDriver():
         finally:
             Logger().close_logger()
 
-    def mouse_right_click(self, *loc):
+    def mouse_right_click(self, loc):
         '''
         鼠标右击定位的元素
         :param loc: 定位元素信息
         :return:
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         if element:
             logging.info("右击")
             ActionChains(self.driver).context_click(element).perform()
@@ -431,13 +431,13 @@ class WebDriver():
             logging.error("无法右击")
         Logger().close_logger()
 
-    def mouse_double_click(self, *loc):
+    def mouse_double_click(self, loc):
         '''
         鼠标双击定位的元素
         :param loc: 定位元素信息
         :return:
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         if element:
             logging.info("双击元素:{0}".format(loc))
             ActionChains(self.driver).double_click(element).perform()
@@ -452,8 +452,8 @@ class WebDriver():
         :param target:
         :return:
         '''
-        element = self.find_element(*loc)
-        goal = self.find_element(*target)
+        element = self.find_element(loc)
+        goal = self.find_element(target)
         if element and goal:
             ActionChains(self.driver).drag_and_drop(element, goal).perform()
             logging.info("从{0}拖动到{1}".format(loc, target))
@@ -461,13 +461,13 @@ class WebDriver():
             logging.error("无法拖动")
         Logger().close_logger()
 
-    def mouse_move(self, *loc):
+    def mouse_move(self, loc):
         '''
         鼠标悬停
         :param loc: 定位元素信息
         :return:
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         if element:
             ActionChains(self.driver).move_to_element(element).perform()
             logging.info("鼠标悬停在元素:{0}上".format(loc))
@@ -475,8 +475,8 @@ class WebDriver():
             logging.error("鼠标无法悬停在元素上")
         Logger().close_logger()
 
-    def mouse_left_click(self,*loc):
-        element = self.find_element(*loc)
+    def mouse_left_click(self,loc):
+        element = self.find_element(loc)
         if element:
             ActionChains(self.driver).click(element).perform()
             logging.info("鼠标点击元素:{0}".format(loc))
@@ -498,7 +498,7 @@ class WebDriver():
         :param y: y坐标
         :return:
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         if element:
             ActionChains(self.driver).drag_and_drop_by_offset(element, x, y)
             logging.info("将元素:{0}拖拽到[{1},{2}]".format(loc,x,y))
@@ -513,7 +513,7 @@ class WebDriver():
         :param loc:定位元素信息
         :return:
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         try:
             Select(element).select_by_index(index)
             logging.info("下拉选择index={0}".format(index))
@@ -529,7 +529,7 @@ class WebDriver():
         :param loc:定位元素信息
         :return:
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         try:
             Select(element).select_by_visible_text(text)
             logging.info("下拉选择text={0}".format(text))
@@ -545,7 +545,7 @@ class WebDriver():
         :param loc: 定位元素信息
         :return:
         '''
-        element = self.find_element(*loc)
+        element = self.find_element(loc)
         try:
             Select(element).select_by_value(value)
             logging.info("下拉选择value={0}".format(value))
